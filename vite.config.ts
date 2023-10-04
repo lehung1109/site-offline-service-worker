@@ -9,9 +9,7 @@ const entryFileNames = (chunkInfo) => {
 };
 
 export default defineConfig({
-  server: {
-    // https: true,
-  },
+  base: '/service-worker/dist/',
   build: {
     emptyOutDir: true,
     rollupOptions: {
