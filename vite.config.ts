@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
-import basicSsl from '@vitejs/plugin-basic-ssl';
 
 const entryFileNames = (chunkInfo) => {
+  if(chunkInfo.name === 'service-worker') {
+    return '[name].js';
+  }
+
   return 'assets/scripts/[name].js';
 };
 
 export default defineConfig({
-  // plugins: [basicSsl()],
   server: {
     // https: true,
   },

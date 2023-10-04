@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext", "WebWorker"]
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "WebWorker", "DOM"]
   }
 }

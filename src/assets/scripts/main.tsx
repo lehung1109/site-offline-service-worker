@@ -1,0 +1,20 @@
+import { createRoot } from 'react-dom/client';
+import App from '../../components/App';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/test",
+    element: <div>Hello world!</div>,
+  },
+]);
+
+const root = createRoot(document.querySelector('#app'));
+root.render(<RouterProvider router={router} />);
