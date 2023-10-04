@@ -8,7 +8,7 @@ declare global {
 const registerServiceWorker = async () => {
   if('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('/service-worker.js');
+      const registration = await navigator.serviceWorker.register(`${import.meta.env.BASE_URL}service-worker.js`);
 
       console.log("Service worker registered");
     } catch(error) {
