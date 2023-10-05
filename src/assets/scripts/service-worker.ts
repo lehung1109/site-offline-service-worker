@@ -9,7 +9,9 @@ self.addEventListener('activate', (event: FetchEvent) => {
 self.addEventListener('fetch', (event: FetchEvent) => {
 
   if(event.request.url.includes('sw-data.json')) {
-    event.respondWith(Response.json([1,2,3,4]));
+    event.respondWith(Response.json({
+      'a': 'test'
+    }));
 
     return;
   }
