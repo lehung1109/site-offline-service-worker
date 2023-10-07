@@ -1,5 +1,5 @@
 const App = () => {
-  return <h1>See in dev tools</h1>;
+  return <h1>You can access page offline. Have fun!</h1>;
 }
 
 export default App;
