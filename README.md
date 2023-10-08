@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Demo](lehung1109.github.io/service-worker/dist)
+[Demo](https://lehung1109.github.io/site-offline-service-worker/dist/)
 
 ## Usage
 
