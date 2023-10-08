@@ -1,8 +1,8 @@
 {
-  "name": "server-worker",
+  "name": "@heroitvn/server-worker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.html",
   "scripts": {
     "start": "npm run dev",
     "build": "vite build",
@@ -10,14 +10,26 @@
     "dev": "concurrently --kill-others \"vite build --watch\" \"npm run preview\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lehung1109/site-offline-service-worker.git"
+  },
+  "keywords": ["offline", "cache", "service worker"],
+  "author": "Hung Le <hung0895@gmail.com>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lehung1109/site-offline-service-worker/issues"
+  },
+  "homepage": "https://github.com/lehung1109/site-offline-service-worker",
   "devDependencies": {
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "concurrently": "^8.2.1",
     "vite": "^4.4.9"
   },
   "types": "types.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
