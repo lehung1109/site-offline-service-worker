@@ -28,7 +28,7 @@
   },
   "types": "types.d.ts",
   "files": [
-    "dist"
+    "dist/service-worker.js"
   ],
   "dependencies": {
     "react": "^18.2.0",
