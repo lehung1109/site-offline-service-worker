@@ -82,6 +82,8 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 
         return offlineResponse;
       }
+
+      console.log(error);
     }
   })());
 });
