@@ -12,6 +12,24 @@ async function putCache(event, cache, res) {
   }
 }
 
+async function getResponse(event, cache) {
+  const preloadResponse = await event.preloadResponse;
+
+  if(preloadResponse) {
+    putCache(event, cache, preloadResponse.clone());
+
+    return preloadResponse;
+  }
+
+  const fetchResponse = await fetch(event.request);
+
+  if(fetchResponse) {
+    putCache(event, cache, fetchResponse.clone());
+  }
+
+  return fetchResponse;
+}
+
 self.addEventListener('install', (event: FetchEvent) => {
   event.waitUntil((async () => {
     self.skipWaiting();
@@ -50,29 +68,21 @@ self.addEventListener('activate', (event: FetchEvent) => {
 
 self.addEventListener('fetch', (event: FetchEvent) => {
   event.respondWith((async () => {
+    let response;
+
     const cache = await caches.open(cacheName);
     const responseCache = await cache.match(event.request);
 
-    if(responseCache) {
-      return responseCache;
-    }
-
     try {
-      const preloadResponse = await event.preloadResponse;
-  
-      if(preloadResponse) {
-        putCache(event, cache, preloadResponse.clone());
+      if(responseCache) {
+        response =  responseCache;
 
-        return preloadResponse;
+        event.waitUntil(getResponse(event, cache));
+      } else {
+        response = await getResponse(event, cache);
       }
 
-      const fetchResponse = await fetch(event.request);
-
-      if(fetchResponse) {
-        putCache(event, cache, fetchResponse.clone());
-      }
-  
-      return fetchResponse;
+      return response;
     } catch (error) {
       // Only call event.respondWith() if this is a navigation request for an HTML page.
       if (event.request.mode === "navigate") {
