@@ -4,32 +4,34 @@ const prefix = 'OSW';
 const cacheName = `${prefix}-v1`;
 const OFFLINE_URL = `${import.meta.env.BASE_URL}offline.html`;
 
-function putCache(event, cache, res) {
+async function putCache(event, cache, res) {
   const url = new URL(event.request.url);
 
   if(url.origin === location.origin) {
-    cache.put(event.request, res);
+    await cache.put(event.request, res);
   }
 }
 
 self.addEventListener('install', (event: FetchEvent) => {
   event.waitUntil((async () => {
+    self.skipWaiting();
+
     const cache = await caches.open(cacheName);
 
     await cache.addAll([
       OFFLINE_URL
     ]);
+  
+    console.log('sw installed');
   })());
-
-  self.skipWaiting();
-
-  console.log('sw installed');
 });
 
 self.addEventListener('activate', (event: FetchEvent) => {
   event.waitUntil((async () => {
+    self.clients.claim();
+
     if (self.registration.navigationPreload) {
-      // await self.registration.navigationPreload.enable();
+      await self.registration.navigationPreload.enable();
     }
 
     const names = await caches.keys();
@@ -41,16 +43,12 @@ self.addEventListener('activate', (event: FetchEvent) => {
         return caches.delete(name);
       }
     }));
+  
+    console.log('sw activated');
   })());
-
-  self.clients.claim();
-
-  console.log('sw activated');
 });
 
 self.addEventListener('fetch', (event: FetchEvent) => {
-  console.log('sw intercept');
-
   event.respondWith((async () => {
     const cache = await caches.open(cacheName);
     const responseCache = await cache.match(event.request);
@@ -60,13 +58,13 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     }
 
     try {
-      // const preloadResponse = await event.preloadResponse;
+      const preloadResponse = await event.preloadResponse;
   
-      // if(preloadResponse) {
-      //   putCache(event, cache, preloadResponse.clone());
+      if(preloadResponse) {
+        putCache(event, cache, preloadResponse.clone());
 
-      //   return preloadResponse;
-      // }
+        return preloadResponse;
+      }
 
       const fetchResponse = await fetch(event.request);
 
