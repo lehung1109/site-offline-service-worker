@@ -9,7 +9,7 @@ const entryFileNames = (chunkInfo) => {
 };
 
 export default defineConfig({
-  base: '/site-offline-service-worker/dist/',
+  base: '/',
   build: {
     emptyOutDir: true,
     rollupOptions: {

@@ -6,13 +6,23 @@
 
 ## Usage
 
+### Build your service worker
+
+1. Clone this repository
+2. Change base url in the vite.config.ts to your base url
+3. Run ```npm run build```
+4. Copy service-worker.js file at the dist/assets/scripts
+
 ### Include script file to your app
 
 copy service-worker.js file to the root of the app
 
+offline.html is a required file
+
 - another files
 - service-worker.js
 - index.html
+- offline.html
 
 Create a file js that declare the service worker above
 
