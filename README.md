@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Demo](https://lehung1109.github.io/site-offline-service-worker/dist/)
+[Demo](https://site-offline-service-worker.vercel.app/)
 
 ## Usage
 
